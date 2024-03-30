@@ -15,4 +15,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GymManager.Infrastructure.Ioc\GymManager.Infrastructure.Ioc.csproj" />
+  </ItemGroup>
+
 </Project>
