@@ -17,6 +17,7 @@ namespace GymManager.Infrastructure.Context
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<TypePayment> Payment { get; set; }
         public DbSet<Week> Weeks { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
