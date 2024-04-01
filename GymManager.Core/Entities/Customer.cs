@@ -7,7 +7,7 @@
             Name = name;
             PhoneNumber = phoneNumber;
             Email = email;
-            CPF = cpf;
+            Cpf = cpf;
             Active = active;
             PlanId = planId;
 
@@ -20,7 +20,7 @@
         public string Name { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Email { get; private set; }
-        public string CPF { get; private set; }
+        public string Cpf { get; private set; }
         public bool Active { get; private set; }
         public DateTime DateCreated { get; private set; }
 

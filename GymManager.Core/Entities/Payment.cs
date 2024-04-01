@@ -1,6 +1,6 @@
 ﻿namespace GymManager.Core.Entities
 {
-    public class Payment
+    public class Payment : Entity
     {
         public Payment(DateTime datePayment, double value, int typePaymentId)
         {

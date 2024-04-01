@@ -4,7 +4,7 @@ namespace GymManager.Core.Entities
 {
     public class Subscription : Entity
     {
-        public Subscription(DateTime dateSubscription, int customerId, int periodInMonths, int planId)
+        public Subscription(DateTime dateSubscription, int customerId, int planId)
         {
             DateSubscription = dateSubscription;
             CustomerId = customerId;
