@@ -22,6 +22,9 @@ namespace GymManager.Infrastructure.Configurations
                 .IsRequired()
                 .HasMaxLength(20);
 
+            builder.Property(x => x.Active)
+                .IsRequired();
+
             builder.HasIndex(x => x.UserName)
                 .IsUnique();
         }

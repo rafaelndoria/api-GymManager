@@ -1,4 +1,7 @@
 using System.Text;
+using FluentValidation.AspNetCore;
+using GymManager.Api.Filters;
+using GymManager.Application.Commands.CreateUser;
 using GymManager.Infrastructure.Ioc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -7,8 +10,9 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-DependencyInjection.AddInfrastructure(builder.Services, builder.Configuration);
-builder.Services.AddControllers();
+DependencyInjection.AddInfrastructure(builder.Services, builder.Configuration)
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining(typeof(CreateUserCommand)));
+builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 

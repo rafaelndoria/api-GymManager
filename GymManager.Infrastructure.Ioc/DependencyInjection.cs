@@ -1,4 +1,10 @@
-﻿using GymManager.Infrastructure.Context;
+﻿using GymManager.Application.Commands.CreateUser;
+using GymManager.Application.Services.Implementations;
+using GymManager.Application.Services.Interfaces;
+using GymManager.Core.Interfaces;
+using GymManager.Infrastructure.Context;
+using GymManager.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +19,14 @@ namespace GymManager.Infrastructure.Ioc
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+
+            services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining<IAuthService>());
+
+            // Repositories
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            // Services
+            services.AddScoped<IAuthService, AuthService>();
 
             return services;
         }
