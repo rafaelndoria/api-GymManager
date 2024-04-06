@@ -22,15 +22,18 @@ namespace GymManager.UnitTests.Application.Commands
             var authServiceMock = new Mock<IAuthService>();
             var userRepositoryMock = new Mock<IUserRepository>();
 
-            authServiceMock.Setup(x => x.ComputeSha256Hash(password)).Returns(passwordHash);
-            authServiceMock.Setup(x => x.GenerateJwtToken(userName, role)).Returns(token);
-
             var createUserCommand = new CreateUserCommand
             {
                 UserName = userName,
                 Role = role,
                 Password = password
             };
+
+            var user = new User(userName, password, role);
+
+            authServiceMock.Setup(x => x.ComputeSha256Hash(password)).Returns(passwordHash);
+            authServiceMock.Setup(x => x.GenerateJwtToken(user.UserName, user.Password)).Returns(token);
+
             var createUserHandler = new CreateUserHandler(authServiceMock.Object, userRepositoryMock.Object);
 
             // Act
@@ -42,7 +45,7 @@ namespace GymManager.UnitTests.Application.Commands
             Assert.Equal(tokenReturn, token);
 
             authServiceMock.Verify(x => x.ComputeSha256Hash(password), Times.Once);
-            authServiceMock.Verify(x => x.GenerateJwtToken(userName, role), Times.Once);
+            authServiceMock.Verify(x => x.GenerateJwtToken(user.UserName, user.Password), Times.Once);
 
             userRepositoryMock.Verify(x => x.CreateAsync(It.IsAny<User>()), Times.Once);
         }

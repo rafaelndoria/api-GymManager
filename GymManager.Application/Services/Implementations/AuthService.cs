@@ -34,30 +34,26 @@ namespace GymManager.Application.Services.Implementations
 
         public string GenerateJwtToken(string email, string role)
         {
+            var secrectKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var issuer = _configuration["Jwt:Issuer"];
             var audience = _configuration["Jwt:Audience"];
-            var key = _configuration["Jwt:Key"];
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claims = new List<Claim>
-            {
-                new Claim("userName", email),
-                new Claim(ClaimTypes.Role, role)
-            };
+            var signinCredentials = new SigningCredentials(secrectKey, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(
+            var tokenOptions = new JwtSecurityToken(
                 issuer: issuer,
                 audience: audience,
-                claims: claims,
-                expires: DateTime.Now.AddHours(8),
-                signingCredentials: credentials
-            );
+                claims: new[]
+                {
+                    new Claim(type: ClaimTypes.Name, email),
+                    new Claim(type: ClaimTypes.Role, role)
+                },
+                expires: DateTime.Now.AddHours(6),
+                signingCredentials: signinCredentials);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var stringToken = tokenHandler.WriteToken(token);
+            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
-            return stringToken;
+            return token;
         }
     }
 }

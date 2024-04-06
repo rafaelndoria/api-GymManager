@@ -24,7 +24,7 @@ namespace GymManager.UnitTests.Application.Commands
             var userRepositoryMock = new Mock<IUserRepository>();
 
             authServiceMock.Setup(x => x.ComputeSha256Hash(password)).Returns(hash);
-            authServiceMock.Setup(x => x.GenerateJwtToken(userName, role)).Returns(token);
+            authServiceMock.Setup(x => x.GenerateJwtToken(user.UserName, user.Role)).Returns(token);
             userRepositoryMock.Setup(x => x.GetByUserNameAndPasswordHashAsync(userName, hash).Result).Returns(user);
 
             var loginUserCommand = new LoginUserCommand()
@@ -43,7 +43,7 @@ namespace GymManager.UnitTests.Application.Commands
             Assert.NotNull(tokenReturn);
 
             authServiceMock.Verify(x => x.ComputeSha256Hash(password), Times.Once);
-            authServiceMock.Verify(x => x.GenerateJwtToken(userName, role), Times.Once);
+            authServiceMock.Verify(x => x.GenerateJwtToken(user.UserName, user.Role), Times.Once);
             userRepositoryMock.Verify(x => x.GetByUserNameAndPasswordHashAsync(userName, hash), Times.Once);
         }
 

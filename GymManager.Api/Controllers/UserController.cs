@@ -7,12 +7,14 @@ using GymManager.Application.Queries.GetAllUsers;
 using GymManager.Application.Queries.GetUserById;
 using GymManager.Application.ViewModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManager.Api.Controllers
 {
     [ApiController]
     [Route("api/users")]
+    [Authorize(Roles = "admin, manager")]
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -30,6 +32,7 @@ namespace GymManager.Api.Controllers
         }
 
         [HttpPut("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
             var token = await _mediator.Send(command);
