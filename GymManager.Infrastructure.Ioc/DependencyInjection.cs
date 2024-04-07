@@ -1,10 +1,8 @@
-﻿using GymManager.Application.Commands.CreateUser;
-using GymManager.Application.Services.Implementations;
+﻿using GymManager.Application.Services.Implementations;
 using GymManager.Application.Services.Interfaces;
 using GymManager.Core.Interfaces;
 using GymManager.Infrastructure.Context;
 using GymManager.Infrastructure.Repositories;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,9 +22,11 @@ namespace GymManager.Infrastructure.Ioc
 
             // Repositories
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPlanRepository, PlanRepository>();
 
             // Services
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IPlanService, PlanService>();
 
             return services;
         }
