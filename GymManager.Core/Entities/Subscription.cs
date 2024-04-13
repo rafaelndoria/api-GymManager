@@ -22,6 +22,8 @@ namespace GymManager.Core.Entities
 
         public void StartSubscription(int periodInMonths)
         {
+            if (Status == EStatusSubscription.Active)
+                throw new Exception("Subscription is active");
             AccessPermittedUntil = DateSubscription.AddMonths(periodInMonths);
             Status = EStatusSubscription.Active;
         }

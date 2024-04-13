@@ -2,13 +2,12 @@
 {
     public class Customer : Entity
     {
-        public Customer(string name, string phoneNumber, string email, string cpf, bool active, int planId)
+        public Customer(string name, string phoneNumber, string email, string cpf, int planId)
         {
             Name = name;
             PhoneNumber = phoneNumber;
             Email = email;
             Cpf = cpf;
-            Active = active;
             PlanId = planId;
 
             DateCreated = DateTime.Now;
