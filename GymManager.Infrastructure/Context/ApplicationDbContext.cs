@@ -11,6 +11,7 @@ namespace GymManager.Infrastructure.Context
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Entry> Entries { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<TypePayment> TypePayments { get; set; }
         public DbSet<Plan> Plans { get; set; }
         public DbSet<PlanTime> PlanTime { get; set; }
         public DbSet<PlanType> PlanType { get; set; }

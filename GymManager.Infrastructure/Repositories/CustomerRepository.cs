@@ -27,7 +27,11 @@ namespace GymManager.Infrastructure.Repositories
 
         public async Task<Customer> GetCustomerById(int id)
         {
-            return await _context.Customers.Include(x => x.Plan).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Customers
+                .Include(x => x.Plan)
+                    .ThenInclude(x => x.PlanType)
+                .Include(x => x.Subscription)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task UpdateAsync(Customer customer)

@@ -12,8 +12,8 @@
 
             DateCreated = DateTime.Now;
             Active = true;
-            Subscriptions = new List<Subscription>();
             Entries = new List<Entry>();
+            Payments = new List<Payment>();
         }
 
         public string Name { get; private set; }
@@ -25,8 +25,9 @@
 
         public int PlanId { get; private set; }
         public Plan? Plan { get; private set; }
-        public IEnumerable<Subscription> Subscriptions { get; private set; }
+        public Subscription? Subscription { get; set; }
         public IEnumerable<Entry> Entries { get; private set; }
+        public IEnumerable<Payment> Payments { get; private set; }
 
         public void Inactivate()
         {

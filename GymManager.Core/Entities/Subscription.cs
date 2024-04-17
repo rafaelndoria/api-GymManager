@@ -4,11 +4,12 @@ namespace GymManager.Core.Entities
 {
     public class Subscription : Entity
     {
-        public Subscription(DateTime dateSubscription, int customerId, int planId)
+        public Subscription(int customerId, int planId)
         {
-            DateSubscription = dateSubscription;
             CustomerId = customerId;
             PlanId = planId;
+
+            DateSubscription = DateTime.Now;
         }
 
         public DateTime DateSubscription { get; private set; }
@@ -34,6 +35,14 @@ namespace GymManager.Core.Entities
             AccessPermittedUntil = null;
         }
 
+        public void ActiveSubscription()
+        {
+            if (Status != EStatusSubscription.Blocked)
+                throw new Exception("Active subscription only when status is Blocked");
+
+            Status = EStatusSubscription.Active;
+        }
+
         public void BlockSubscription()
         {
             Status = EStatusSubscription.Blocked;
@@ -51,17 +60,6 @@ namespace GymManager.Core.Entities
             }
 
             AccessPermittedUntil = dayNow.AddDays(addDaysSubscription).AddMonths(periodInMonths);
-            Status = EStatusSubscription.Active;
-        }
-
-        public void UpdatePlan(int planId, int periodInMonths)
-        {
-            if (DateTime.Now < AccessPermittedUntil)
-                throw new Exception("Only change plans when it ends");
-
-            DateSubscription = DateTime.Now;
-            PlanId = planId;
-            AccessPermittedUntil = DateSubscription.AddMonths(periodInMonths);
             Status = EStatusSubscription.Active;
         }
 

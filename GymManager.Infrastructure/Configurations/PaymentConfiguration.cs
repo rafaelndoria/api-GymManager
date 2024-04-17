@@ -24,6 +24,11 @@ namespace GymManager.Infrastructure.Configurations
                 .WithMany(x => x.Payments)
                 .HasForeignKey(x => x.TypePaymentId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.Customer)
+                .WithMany(x => x.Payments)
+                .HasForeignKey(x => x.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

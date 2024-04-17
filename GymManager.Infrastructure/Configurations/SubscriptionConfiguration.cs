@@ -25,9 +25,8 @@ namespace GymManager.Infrastructure.Configurations
                 .IsRequired();
 
             builder.HasOne(x => x.Customer)
-                .WithMany(x => x.Subscriptions)
-                .HasForeignKey(x => x.CustomerId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .WithOne(x => x.Subscription)
+                .HasForeignKey<Subscription>(x => x.CustomerId);
 
             builder.HasOne(x => x.Plan)
                 .WithMany(x => x.Subscriptions)

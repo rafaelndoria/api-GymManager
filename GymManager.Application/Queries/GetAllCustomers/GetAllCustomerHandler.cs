@@ -18,7 +18,7 @@ namespace GymManager.Application.Queries.GetAllCustomers
             var customers = await _customerRepository.GetAllCustomersAsync();
             if (customers == null)
                 return null;
-            var customersViewModel = customers.Select(x => new CustomerViewModel(x.Name, x.PhoneNumber, x.Email, x.Cpf, x.Active, x.DateCreated));
+            var customersViewModel = customers.Select(x => new CustomerViewModel(x.Id, x.Name, x.PhoneNumber, x.Email, x.Cpf, x.Active, x.DateCreated));
             return customersViewModel;
         }
     }

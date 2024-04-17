@@ -2,8 +2,9 @@
 {
     public class CustomerViewModel
     {
-        public CustomerViewModel(string name, string phoneNumber, string email, string cpf, bool active, DateTime dateCreated)
+        public CustomerViewModel(int id, string name, string phoneNumber, string email, string cpf, bool active, DateTime dateCreated)
         {
+            Id = id;
             Name = name;
             PhoneNumber = phoneNumber;
             Email = email;
@@ -12,6 +13,7 @@
             DateCreated = dateCreated;
         }
 
+        public int Id { get; private set; }
         public string Name { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Email { get; private set; }

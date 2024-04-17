@@ -24,6 +24,8 @@ namespace GymManager.Infrastructure.Ioc
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPlanRepository, PlanRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
 
             // Services
             services.AddScoped<IAuthService, AuthService>();

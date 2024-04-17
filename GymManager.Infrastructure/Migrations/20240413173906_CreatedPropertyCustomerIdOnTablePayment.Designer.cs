@@ -4,6 +4,7 @@ using GymManager.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240413173906_CreatedPropertyCustomerIdOnTablePayment")]
+    partial class CreatedPropertyCustomerIdOnTablePayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,8 +272,7 @@ namespace GymManager.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId")
-                        .IsUnique();
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("PlanId");
 
@@ -292,7 +294,7 @@ namespace GymManager.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypePayment");
+                    b.ToTable("Payment");
 
                     b.HasData(
                         new
@@ -479,9 +481,9 @@ namespace GymManager.Infrastructure.Migrations
             modelBuilder.Entity("GymManager.Core.Entities.Subscription", b =>
                 {
                     b.HasOne("GymManager.Core.Entities.Customer", "Customer")
-                        .WithOne("Subscription")
-                        .HasForeignKey("GymManager.Core.Entities.Subscription", "CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GymManager.Core.Entities.Plan", "Plan")
@@ -501,7 +503,7 @@ namespace GymManager.Infrastructure.Migrations
 
                     b.Navigation("Payments");
 
-                    b.Navigation("Subscription");
+                    b.Navigation("Subscriptions");
                 });
 
             modelBuilder.Entity("GymManager.Core.Entities.Plan", b =>

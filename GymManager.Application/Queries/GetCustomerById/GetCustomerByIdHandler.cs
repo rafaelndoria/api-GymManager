@@ -19,7 +19,7 @@ namespace GymManager.Application.Queries.GetCustomerById
             var customer = await _customerRepository.GetCustomerById(request.Id);
             if (customer == null)
                 return null;
-            var customerViewModel = new CustomerViewModel(customer.Name, customer.PhoneNumber, customer.Email, customer.Cpf, customer.Active, customer.DateCreated);
+            var customerViewModel = new CustomerViewModel(customer.Id, customer.Name, customer.PhoneNumber, customer.Email, customer.Cpf, customer.Active, customer.DateCreated);
             return customerViewModel;
         }
     }
