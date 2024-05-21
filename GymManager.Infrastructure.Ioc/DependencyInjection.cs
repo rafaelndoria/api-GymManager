@@ -30,6 +30,7 @@ namespace GymManager.Infrastructure.Ioc
             // Services
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPlanService, PlanService>();
+            services.AddScoped<IEntryService, EntryService>();
 
             return services;
         }
